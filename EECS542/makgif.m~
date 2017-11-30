@@ -1,0 +1,24 @@
+clc;clear all;close all;
+for i=0:59   %???
+    if i <= 9
+        Msk=imread(['horsejump-low/0000' num2str(i) '.png']);
+        Img=imread(['horsejump-low-o/0000' num2str(i) '.jpg']);
+        Img(:,:,1) = Img(:,:,1)+Msk;
+    else
+        Msk=imread(['horsejump-low/000' num2str(i) '.png']);
+        Img=imread(['horsejump-low-o/000' num2str(i) '.jpg']);
+        Img(:,:,1) = Img(:,:,1)+Msk;
+    end
+    imshow(Img,[]);%??????????????????????????
+
+    frame=getframe(gcf);
+    im=frame2im(frame);%??gif????????index????
+    [I,map]=rgb2ind(im,256);
+    if i==0;
+        imwrite(I,map,'horse.gif','gif','Loopcount',inf,...
+            'DelayTime',0.05); 
+    else
+        imwrite(I,map,'horse.gif','gif','WriteMode','append',...
+            'DelayTime',0.05); 
+    end
+end
